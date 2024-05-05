@@ -1,17 +1,12 @@
 use poem::{listener::TcpListener, Route, Server, Result, EndpointExt};
-use poem_openapi::{payload::PlainText, OpenApi, OpenApiService};
+use poem_openapi::{OpenApi, OpenApiService};
 use std::error::Error;
 
 struct Api;
 mod book;
 
 #[OpenApi]
-impl Api {
-    #[oai(path = "/postt", method = "post")]
-    async fn index(&self) -> PlainText<&'static str> {
-        PlainText("Hello World")
-    }
-}
+impl Api {}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
