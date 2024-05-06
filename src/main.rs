@@ -4,6 +4,7 @@ use std::error::Error;
 
 struct Api;
 mod book;
+mod author;
 
 #[OpenApi]
 impl Api {}
@@ -16,7 +17,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     sqlx::migrate!("./migrations").run(&pool).await?;
 
-    let endpoints = (Api,book::BookApi);
+    let endpoints = (Api,book::BookApi,author::AuthorApi);
     let api_service =
         OpenApiService::new(endpoints, "Hello World", "1.0").server("http://localhost:3000");
     let ui = api_service.swagger_ui();
